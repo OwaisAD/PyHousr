@@ -1,0 +1,6 @@
+Adresse,X,Y,Pris,Type,Værelser,Bolig Areal,Kvadratmeter Pris,Grund Areal,Byggeår,Internet Hastighed,Energimærke
+Gammelmosevej 218,55.756103,12.480264,4495000,Rækkehus,4,113,39778,294,1979,100 MBit,C
+Danmarksvej 43A,55.794678,12.517936,7695000,Villa,6,182,42280,754,1960,100 MBit,D
+"Boulevarden 14, st. 63",,,4395000,Ejerlejlighed,4,115,38217,9131,1965,50 MBit,
+Danmarksvej 42A,55.794818,12.518472,5995000,Villa,4,98,61173,864,1935,100 MBit,E
+Skovsvinget 26A,55.790367,12.540233,8745000,Villa,3,187,46764,1096,1954,100 MBit,D

@@ -4,12 +4,19 @@ from selenium.common.exceptions import NoSuchElementException
 import csv
 import time
 import argparse
+from accept_terms import accept_terms
+
+
+browser = webdriver.Firefox()
+browser.get('https://www.dingeo.dk')
+time.sleep(2)
+
+accept_terms(browser)
+
 
 def scrape_links(postnr):
     try:
-        browser = webdriver.Firefox()
         browser.get(f'https://www.dingeo.dk/salg/#?postnr={postnr}')
-
         time.sleep(8)
 
         # Find knappen "Hent flere" og klik på den
@@ -58,8 +65,6 @@ def scrape_links(postnr):
         print(e)
 
     browser.quit()
-
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Vil hente links fra dinGeo på huse til salg")

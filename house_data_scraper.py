@@ -124,6 +124,7 @@ def house_data_scrape(postnr):
             print(e)
             continue
     #     data.append(house_data)
+    browser.quit()
 
     # return data
 

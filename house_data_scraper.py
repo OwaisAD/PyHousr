@@ -13,17 +13,6 @@ time.sleep(2)
 
 accept_terms(browser)
 
-def scrape_byggeår(browser):
-    try:
-        bygge_år = int(browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[6]').text)
-    except:
-        try:
-            bygge_år = int(By.XPATH, '/html/body/div[2]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[5]').text
-        except:
-            bygge_år = 0
-            print('Ikke noget byggeår')
-    return bygge_år
-
 def save_to_csv(data, filename):
     fieldnames = ['Address', 'X', 'Y', 'Price', 'Type', 'Size', 'Squaremeter price', 'Energy class', 'Url']
 
@@ -32,114 +21,146 @@ def save_to_csv(data, filename):
         #writer.writeheader()
         writer.writerow(data)
 
-def house_data_scrape(postnr):
-
+def load_visited_urls(zip_code, filename):
     visited_urls = []
-    data = []
-    filename = f"house_data_{postnr}.csv"
     with open (filename) as file:
-        
         lines = file.readlines()
-        
         for line in lines:
             parts = line.split(',')
             visited_urls.append(parts[-1].rstrip())
 
+    return visited_urls
+
+def scrape_address(browser):
     try:
-        with open(f"data_{postnr}.csv", "r") as file:
+        address = browser.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[1]/a').text
+        return address
+    except:
+        print("Ingen adresse fundet")
+        return
+
+
+def scrape_price(browser):
+    try:
+        price = browser.find_element(By.XPATH, '/html/body/div[2]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[1]').text
+        return price
+    except:
+        print("Ingen pris fundet")
+        return
+    
+def scrape_type(browser):
+    try:
+        type = browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[2]').text
+        return type
+    except:
+        print("Ingen type fundet")
+        return
+
+def scrape_squaremetres(browser):
+    try:
+        scrape_squaremetres = browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[4]').text
+        return scrape_squaremetres
+    except:
+        print("Ingen antal kvm fundet")
+        return
+
+def scrape_energy_class(browser):
+    try:
+        energy_class = browser.find_element(By.XPATH, '/html/body/div[2]/div[6]/div[1]/div[2]/div[22]/div/div[2]/div/div[1]/p[1]').text
+        regex_pattern = r"energimærke\s*(A2020|A2015|A2010|A|B|C|D|E|F|G)"
+        match = re.search(regex_pattern, energy_class)
+        if match:
+            return match.group(1)
+        else:
+            print("Energimærke blev ikke fundet.")
+            return
+    except:
+        print("Ingen energiklasse fundet.")
+        return
+
+def house_data_scrape(zip_code):
+    
+    filename = f"house_data_{zip_code}.csv"
+    visited_urls = load_visited_urls(zip_code, filename)
+
+    try:
+        with open(f"data_{zip_code}.csv", "r") as file:
             links = file.readlines()
-            print(f'links er : {links}')
     except Exception as e:
         print(e)
-        return data
     
-    print(f'visited_urls: {visited_urls}')
-
     for link in links:
-
         link = link.strip()
-        if not link:
+        if not link or link in visited_urls:
             continue
-        if link in visited_urls:
-            continue
-
-        print(f'Dette er linket: {link}')
+       
         browser.get(link)
-        
         time.sleep(3)
         try:
-            try:
-                adresse = browser.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[1]/a').text
-            except:
-                print("Ingen adresse fundet")
+            address = scrape_address(browser)
+            if not address:
                 continue
 
-            stripped_address = adresse.split(',')[0].strip()
-                            
-            x,y = get_coordinates(stripped_address)       
-            price = browser.find_element(By.XPATH, '/html/body/div[2]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[1]').text
+            stripped_address = address.split(',')[0].strip()    
+            x,y = get_coordinates(stripped_address)   
+
+            price = scrape_price(browser)
+            if not price:
+                continue
+
             cleaned_price = int(price.replace(".", "").split()[0])
             
-            type = browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[2]').text
-            # rooms = int(browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[3]').text)
-            bolig_areal = browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[4]').text
-            cleaned_bolig_areal = int(bolig_areal.split()[0])
-            kvm_pris = int(int(cleaned_price)/int(cleaned_bolig_areal))   
+            type = scrape_type(browser)
+            if not type:
+                continue
 
-            # grund_areal = browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[5]').text
-            # cleaned_grund_areal = int(grund_areal.replace(".", "").split()[0])
-            
-            # byggeår = scrape_byggeår(browser)
-            
-            # internet_hastighed = browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[8]').text
+            squaremetres = scrape_squaremetres(browser)
+            if not squaremetres:
+                continue
 
-            energi_mærke = browser.find_element(By.XPATH, '/html/body/div[2]/div[6]/div[1]/div[2]/div[22]/div/div[2]/div/div[1]/p[1]').text
-            regex_pattern = r"energimærke\s*(A2020|A2015|A2010|A|B|C|D|E|F|G)"
-            match = re.search(regex_pattern, energi_mærke)
-            if match:
-                energimærke = match.group(1)
-            else:
-                print("Energimærke blev ikke fundet.")
+            cleaned_squaremetres = int(squaremetres.split()[0])
+            price_sqrtmetres = int(int(cleaned_price)/int(cleaned_squaremetres))   
+
+            energy_class = scrape_energy_class(browser)
+            if not energy_class:
                 continue
 
             house_data = {
                
-                'Address': adresse,
+                'Address': address,
                 'X':x,
                 'Y':y,
                 'Price': cleaned_price,
                 'Type': type,
-                #'Værelser': rooms,
-                'Size': cleaned_bolig_areal,
-                'Squaremeter price': kvm_pris,
-                #'Grund Areal': cleaned_grund_areal,
-                #'Byggeår': byggeår,
-                #'Internet Hastighed': internet_hastighed,
-                'Energy class': energimærke,
+                'Size': cleaned_squaremetres,
+                'Squaremeter price': price_sqrtmetres,
+                'Energy class': energy_class,
                 'Url': link
             }
+
             save_to_csv(house_data, filename)
+
         except Exception as e:
             print(f"Url skipped")
             print(e)
             continue
-    #     data.append(house_data)
+
     browser.quit()
 
-    # return data
+
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Vil hente data fra dit valgte fra dinGeo på huse til salg")
-    parser.add_argument("postnr", help="Dansk postnr du vil scrappe huse fra")
+    parser.add_argument("zip_code", help="Dansk postnr du vil scrappe huse fra")
 
     args = parser.parse_args()
 
-    if not args.postnr:
+    if not args.zip_code:
         print("Indtast venligst postnr.")
     else:
         print("Behandler.")
-        my_data = house_data_scrape(args.postnr)
+        my_data = house_data_scrape(args.zip_code)
         
-        #filename = f"house_data_{args.postnr}.csv"
-        #save_to_csv(my_data, filename)
         print(f"Data er gemt i filen:")

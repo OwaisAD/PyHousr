@@ -20,7 +20,7 @@ def scrape_links(postnr):
         time.sleep(8)
 
         # Find knappen "Hent flere" og klik på den
-        hent_flere_knap = browser.find_element(By.XPATH, '/html/body/div[4]/div/div/div/div/div[3]/div/div/div[13]/div/div[1]/a')
+        hent_flere_knap = browser.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div/div[3]/div/div/div[13]/div/div[1]/a')
         hent_flere_knap.click()
 
         last_height = browser.execute_script('return document.body.scrollHeight')

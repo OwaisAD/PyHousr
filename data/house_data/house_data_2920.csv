@@ -1,4 +1,4 @@
-Type,Size,Squaremeter price,Energy class,Url
+Address,X,Y,Price,Type,Size,Squaremeter price,Energy class,Url
 "Ordrupvej 126A, st. 3",55.759599,12.56701,2995000,Ejerlejlighed,71,42183,D,https://www.dingeo.dk/adresse/2920-charlottenlund/ordrupvej-126a/st-3/
 "Clarasvej 5, 1. tv",55.868952,9.895846,5995000,Ejerlejlighed,100,59950,C,https://www.dingeo.dk/adresse/2920-charlottenlund/clarasvej-5/1-tv/
 "Ordrupvej 129, 1. tv",55.759368,12.567092,3250000,Ejerlejlighed,78,41666,C,https://www.dingeo.dk/adresse/2920-charlottenlund/ordrupvej-129/1-tv/

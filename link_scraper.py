@@ -17,10 +17,14 @@ accept_terms(browser)
 def scrape_links(postnr):
     try:
         browser.get(f'https://www.dingeo.dk/salg/#?postnr={postnr}')
+        
         time.sleep(8)
 
-        # Find knappen "Hent flere" og klik på den
+        
+        # Find knappen "Hent flere" og klik på den       
         hent_flere_knap = browser.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div/div[3]/div/div/div[13]/div/div[1]/a')
+        time.sleep(3)
+
         hent_flere_knap.click()
 
         last_height = browser.execute_script('return document.body.scrollHeight')

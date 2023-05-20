@@ -24,14 +24,15 @@ def validate_coordinates():
     fieldnames = ['Address', 'X', 'Y', 'Price', 'Type', 'Size', 'Squaremeter price', 'Energy class', 'Url']
     
     #filename = f'./data/house_data/house_data_{city}.csv'
-    filename = f'./data/house_data/house_data_2930.csv'
-    output_file = f'./data/house_data/house_data_2930_output.csv'
+    zipCode = 3460
+    filename = f'./data/house_data/house_data_{zipCode}.csv'
+    output_file = f'./data/house_data/house_data_{zipCode}_output.csv'
     with open(filename, 'r') as f:
         csvreader = csv.reader(f)
         for row in csvreader:
             address = row[0]
             stripped_address = address.split(',')[0].strip() 
-            x,y = get_coordinates(stripped_address,2930)
+            x,y = get_coordinates(stripped_address,zipCode)
             price = row[3]
             type = row[4]
             size = row[5]

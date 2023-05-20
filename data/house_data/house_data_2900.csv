@@ -20,14 +20,14 @@ Ryvangs Allé 48,55.725157,12.569738,19995000,Villa,239,83661,C,https://www.ding
 Eggersvej 44,55.738705,12.552516,20950000,Villa,226,92699,D,https://www.dingeo.dk/adresse/2900-hellerup/eggersvej-44/
 Rygårds Alle 55,55.728599,12.561979,13995000,Villa,181,77320,E,https://www.dingeo.dk/adresse/2900-hellerup/ryg%C3%A5rds%20alle-55/
 Højsgårds Alle 52,55.731521,12.542236,9995000,Villa,152,65756,D,https://www.dingeo.dk/adresse/2900-hellerup/h%C3%B8jsg%C3%A5rds%20alle-52/
-"Strandvejen 99, st. th",55.448968,12.189234,3498000,Ejerlejlighed,73,47917,C,https://www.dingeo.dk/adresse/2900-hellerup/strandvejen-99/st-th/
-Strandvejen 122,56.132357,10.211264,28500000,Villa,355,80281,E,https://www.dingeo.dk/adresse/2900-hellerup/strandvejen-122/
+"Strandvejen 99, st. th",55.72304,12.57706,3498000,Ejerlejlighed,73,47917,C,https://www.dingeo.dk/adresse/2900-hellerup/strandvejen-99/st-th/
+Strandvejen 122,55.736762,12.575813,28500000,Villa,355,80281,E,https://www.dingeo.dk/adresse/2900-hellerup/strandvejen-122/
 "Evanstonevej 8A, 1. th",55.722837,12.579281,4495000,Ejerlejlighed,76,59144,D,https://www.dingeo.dk/adresse/2900-hellerup/evanstonevej-8a/1-th/
 Bakkedal 7,55.735455,12.548622,12800000,Villa,243,52674,D,https://www.dingeo.dk/adresse/2900-hellerup/bakkedal-7/
 "Esthersvej 27, st. th",55.730264,12.565022,5495000,Ejerlejlighed,85,64647,D,https://www.dingeo.dk/adresse/2900-hellerup/esthersvej-27/st-th/
 Høyrups Alle 11,55.739642,12.579027,27800000,Villa,267,104119,D,https://www.dingeo.dk/adresse/2900-hellerup/h%C3%B8yrups%20alle-11/
 "A N Hansens Alle 4, 1.",55.736095,12.576055,17495000,Villalejlighed,215,81372,D,https://www.dingeo.dk/adresse/2900-hellerup/a%20n%20hansens%20alle-4/1-/
-Granhøjen 8,56.033675,9.892334,12995000,Villa,206,63082,D,https://www.dingeo.dk/adresse/2900-hellerup/granh%C3%B8jen-8/
+Granhøjen 8,55.736472,12.547635,12995000,Villa,206,63082,D,https://www.dingeo.dk/adresse/2900-hellerup/granh%C3%B8jen-8/
 "Duntzfelts Alle 19, 1.",55.736127,12.570227,10995000,Ejerlejlighed,120,91625,D,https://www.dingeo.dk/adresse/2900-hellerup/duntzfelts%20alle-19/1-/
 Hartmannsvej 31,55.742422,12.565592,10250000,Villa,132,77651,C,https://www.dingeo.dk/adresse/2900-hellerup/hartmannsvej-31/
 Bøgehøj 52,55.727523,12.542607,9995000,Villa,131,76297,D,https://www.dingeo.dk/adresse/2900-hellerup/b%C3%B8geh%C3%B8j-52/
@@ -47,7 +47,7 @@ Vespervej 34,55.729026,12.551179,12950000,Villa,239,54184,C,https://www.dingeo.d
 Grants Alle 48,55.730202,12.539827,10995000,Villa,128,85898,D,https://www.dingeo.dk/adresse/2900-hellerup/grants%20alle-48/
 Hesselvang 14,55.741549,12.553624,11995000,Rækkehus,191,62801,C,https://www.dingeo.dk/adresse/2900-hellerup/hesselvang-14/
 Alrunevej 12,55.735832,12.539075,7245000,Villa,134,54067,E,https://www.dingeo.dk/adresse/2900-hellerup/alrunevej-12/
-"Vedbendvej 12, st. tv",56.192071,10.237511,2995000,Ejerlejlighed,83,36084,D,https://www.dingeo.dk/adresse/2900-hellerup/vedbendvej-12/st-tv/
+"Vedbendvej 12, st. tv",55.736287,12.538221,2995000,Ejerlejlighed,83,36084,D,https://www.dingeo.dk/adresse/2900-hellerup/vedbendvej-12/st-tv/
 Lundevangsvej 17,55.726243,12.570444,15500000,Villa,200,77500,D,https://www.dingeo.dk/adresse/2900-hellerup/lundevangsvej-17/
 Aurehøjvej 17A,55.735279,12.571132,15995000,Villa,160,99968,E,https://www.dingeo.dk/adresse/2900-hellerup/aureh%C3%B8jvej-17a/
 Fannys Alle 11,55.737507,12.558056,18900000,Villa,220,85909,E,https://www.dingeo.dk/adresse/2900-hellerup/fannys%20alle-11/
@@ -58,7 +58,7 @@ Annasvej 30,55.739841,12.583573,72000000,Villa,375,192000,A2010,https://www.ding
 Lemchesvej 11,55.735551,12.578761,29900000,Villa,266,112406,D,https://www.dingeo.dk/adresse/2900-hellerup/lemchesvej-11/
 "Callisensvej 23, 2.",55.729892,12.571566,8250000,Villalejlighed,112,73660,E,https://www.dingeo.dk/adresse/2900-hellerup/callisensvej-23/2-/
 "Tranegårdsvej 49, 2. th",55.741574,12.561546,2245000,Ejerlejlighed,45,49888,F,https://www.dingeo.dk/adresse/2900-hellerup/traneg%C3%A5rdsvej-49/2-th/
-Baldrianvej 19,56.205573,10.245404,7000000,Villa,115,60869,C,https://www.dingeo.dk/adresse/2900-hellerup/baldrianvej-19/
+Baldrianvej 19,55.736858,12.536897,7000000,Villa,115,60869,C,https://www.dingeo.dk/adresse/2900-hellerup/baldrianvej-19/
 Toftholm Alle 11,55.737052,12.553964,21995000,Villa,252,87281,C,https://www.dingeo.dk/adresse/2900-hellerup/toftholm%20alle-11/
 Grants Alle 9,55.729764,12.545897,9500000,Villa,188,50531,E,https://www.dingeo.dk/adresse/2900-hellerup/grants%20alle-9/
 Ingeborgvej 51A,55.744218,12.562265,12995000,Villa,186,69865,A2015,https://www.dingeo.dk/adresse/2900-hellerup/ingeborgvej-51a/
@@ -74,7 +74,7 @@ Vespervej 17,55.730255,12.551615,11950000,Villa,160,74687,C,https://www.dingeo.d
 "Tuborgvej 64, st.",55.728117,12.563955,2995000,Ejerlejlighed,74,40472,D,https://www.dingeo.dk/adresse/2900-hellerup/tuborgvej-64/st-/
 "Ellemosevej 117, 1.",55.736701,12.532266,5995000,Villalejlighed,115,52130,D,https://www.dingeo.dk/adresse/2900-hellerup/ellemosevej-117/1-/
 Birkehøj 12,55.725373,12.54669,10800000,Villa,171,63157,D,https://www.dingeo.dk/adresse/2900-hellerup/birkeh%C3%B8j-12/
-Bakkedal 20,55.073861,12.00514,15800000,Villa,233,67811,B,https://www.dingeo.dk/adresse/2900-hellerup/bakkedal-20/
+Bakkedal 20,55.735598,12.5466,15800000,Villa,233,67811,B,https://www.dingeo.dk/adresse/2900-hellerup/bakkedal-20/
 Heslegårdsvej 3,55.741979,12.556154,9295000,Rækkehus,153,60751,A2010,https://www.dingeo.dk/adresse/2900-hellerup/hesleg%C3%A5rdsvej-3/
 Mantziusvej 17,55.744437,12.572581,12995000,Villa,129,100736,D,https://www.dingeo.dk/adresse/2900-hellerup/mantziusvej-17/
 Høyrups Alle 25,55.739587,12.58125,44500000,Villa,288,154513,D,https://www.dingeo.dk/adresse/2900-hellerup/h%C3%B8yrups%20alle-25/
@@ -85,7 +85,7 @@ Høyrups Alle 25,55.739587,12.58125,44500000,Villa,288,154513,D,https://www.ding
 Kildegårdsvænget 21,55.736435,12.542552,5250000,Rækkehus,88,59659,C,https://www.dingeo.dk/adresse/2900-hellerup/kildeg%C3%A5rdsv%C3%A6nget-21/
 Søholm Park 11,55.724186,12.550642,9750000,Villa,140,69642,D,https://www.dingeo.dk/adresse/2900-hellerup/s%C3%B8holm%20park-11/
 "Vingårds Alle 55, st. tv",55.741628,12.575512,6495000,Ejerlejlighed,107,60700,D,https://www.dingeo.dk/adresse/2900-hellerup/ving%C3%A5rds%20alle-55/st-tv/
-Stendyssevej 6,54.811825,11.018552,8975000,Villa,190,47236,D,https://www.dingeo.dk/adresse/2900-hellerup/stendyssevej-6/
+Stendyssevej 6,55.731473,12.544381,8975000,Villa,190,47236,D,https://www.dingeo.dk/adresse/2900-hellerup/stendyssevej-6/
 Carolinevej 12C,55.729064,12.578492,14750000,Ejerlejlighed,155,95161,B,https://www.dingeo.dk/adresse/2900-hellerup/carolinevej-12c/
 "Svanemøllevej 86, 1.",55.728441,12.574441,10750000,Villalejlighed,151,71192,D,https://www.dingeo.dk/adresse/2900-hellerup/svanem%C3%B8llevej-86/1-/
 "Rebekkavej 36, 2. tv",55.731526,12.564556,9995000,Ejerlejlighed,169,59142,D,https://www.dingeo.dk/adresse/2900-hellerup/rebekkavej-36/2-tv/
@@ -93,7 +93,7 @@ Carolinevej 12C,55.729064,12.578492,14750000,Ejerlejlighed,155,95161,B,https://w
 "Sofievej 9A, st. th",55.732602,12.573958,7995000,Ejerlejlighed,108,74027,B,https://www.dingeo.dk/adresse/2900-hellerup/sofievej-9a/st-th/
 "Bernstorffsvej 127, 1.",55.746277,12.556704,5995000,Villalejlighed,111,54009,C,https://www.dingeo.dk/adresse/2900-hellerup/bernstorffsvej-127/1-/
 "Callisensvej 16, 2. th",55.729949,12.574676,3195000,Ejerlejlighed,64,49921,D,https://www.dingeo.dk/adresse/2900-hellerup/callisensvej-16/2-th/
-Løvsangervej 6,57.045928,10.355583,15995000,Villa,161,99347,C,https://www.dingeo.dk/adresse/2900-hellerup/l%C3%B8vsangervej-6/
+Løvsangervej 6,55.74558,12.559566,15995000,Villa,161,99347,C,https://www.dingeo.dk/adresse/2900-hellerup/l%C3%B8vsangervej-6/
 "Heslegårdsvej 4, st. 1",55.742571,12.554052,3495000,Ejerlejlighed,75,46600,B,https://www.dingeo.dk/adresse/2900-hellerup/hesleg%C3%A5rdsvej-4/st-1/
 "Rebekkavej 20A, st. 3",55.730088,12.564492,2695000,Ejerlejlighed,51,52843,D,https://www.dingeo.dk/adresse/2900-hellerup/rebekkavej-20a/st-3/
 Onsgårdsvej 29,55.733203,12.580106,33950000,Villa,362,93784,E,https://www.dingeo.dk/adresse/2900-hellerup/onsg%C3%A5rdsvej-29/
@@ -124,12 +124,12 @@ Granhøjen 3,55.73634,12.549057,13495000,Villa,212,63655,F,https://www.dingeo.dk
 "Havsgårdsvej 35, 2.",55.725391,12.552197,6750000,Ejerlejlighed,200,33750,D,https://www.dingeo.dk/adresse/2900-hellerup/havsg%C3%A5rdsvej-35/2-/
 Baunegårdsvej 67D,55.740046,12.551767,12800000,Rækkehus,140,91428,C,https://www.dingeo.dk/adresse/2900-hellerup/bauneg%C3%A5rdsvej-67d/
 Ingeborgvej 44,55.743512,12.560644,13500000,Villa,167,80838,D,https://www.dingeo.dk/adresse/2900-hellerup/ingeborgvej-44/
-Stendyssevej 12,54.991154,12.503323,9995000,Villa,179,55837,D,https://www.dingeo.dk/adresse/2900-hellerup/stendyssevej-12/
+Stendyssevej 12,55.732061,12.54409,9995000,Villa,179,55837,D,https://www.dingeo.dk/adresse/2900-hellerup/stendyssevej-12/
 Ellemosevej 76,55.732625,12.537126,9995000,Villa,183,54617,C,https://www.dingeo.dk/adresse/2900-hellerup/ellemosevej-76/
 Barsehøj 19,55.736165,12.544226,16000000,Villa,230,69565,C,https://www.dingeo.dk/adresse/2900-hellerup/barseh%C3%B8j-19/
 "Norgesmindevej 33, 1.",55.72553,12.569868,11500000,Ejerlejlighed,153,75163,D,https://www.dingeo.dk/adresse/2900-hellerup/norgesmindevej-33/1-/
 Kameliavej 3,55.740115,12.575059,16450000,Rækkehus,164,100304,C,https://www.dingeo.dk/adresse/2900-hellerup/kameliavej-3/
 "Strandparksvej 10, 2. tv",55.731657,12.577285,7995000,Ejerlejlighed,104,76875,C,https://www.dingeo.dk/adresse/2900-hellerup/strandparksvej-10/2-tv/
-"Tranevænget 4, 3. th",55.657979,12.412025,7495000,Ejerlejlighed,124,60443,D,https://www.dingeo.dk/adresse/2900-hellerup/tranev%C3%A6nget-4/3-th/
+"Tranevænget 4, 3. th",55.740301,12.575666,7495000,Ejerlejlighed,124,60443,D,https://www.dingeo.dk/adresse/2900-hellerup/tranev%C3%A6nget-4/3-th/
 "Margrethevej 3B, st. th",55.733958,12.573912,5695000,Ejerlejlighed,94,60585,C,https://www.dingeo.dk/adresse/2900-hellerup/margrethevej-3b/st-th/
 "Tuborgvej 13, 1. 5",55.726739,12.572748,3995000,Ejerlejlighed,66,60530,C,https://www.dingeo.dk/adresse/2900-hellerup/tuborgvej-13/1-5/

@@ -47,8 +47,8 @@ label.pack(pady=12, padx=10)
 
 def load_model():
     global model
-    model = joblib.load('RFG_Model')
-    return model
+    model = joblib.load('./RFG_Model')
+    
 
 def get_coordinates(address, postnr):
     geolocator = Nominatim(user_agent="my-app")
@@ -82,7 +82,7 @@ def calculate():
 
     x,y = get_coordinates(address, zip_code)
     
-    model = load_model()
+    load_model()
 
     if model:
         cities = ['2800', '2820', '2830', '2840', '2850', '2900', '2920', '2930', '2942', '2950', '3000', '3460']
@@ -103,7 +103,7 @@ def calculate():
                 label_encoders[feature] = LabelEncoder()
                 data[feature] = label_encoders[feature].fit_transform(data[feature])
         
-        new_house = pd.DataFrame([[x, y, size, type, energy_class]], columns=features)
+        new_house = pd.DataFrame([[x, y, int(size), type, energy_class]], columns=features)
         for feature in features:
             if new_house[feature].dtype == 'object':
                 new_house[feature] = label_encoders[feature].transform(new_house[feature])

@@ -5,6 +5,10 @@ from geopy.geocoders import Nominatim
 import joblib
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+import locale
+
+
+
 
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
@@ -50,7 +54,7 @@ entry_address.pack(pady=12, padx=10)
 entry_zip_code = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Zip','2800 (Lyngby)','2820 (Gentofte)','2830 (Virum)','2840 (Holte)','2850 (Nærum)','2900 (Hellerup)','2920 (Charlottenlund)','2930 (Klampenborg)','2942 (Skodsborg)','2950 (Vedbæk)','3000 (Helsingør)','3460 (Birkerød)'])
 entry_zip_code.pack(pady=12, padx=10)
 
-entry_size = customtkinter.CTkEntry(master=app.frame_left, placeholder_text='Size')
+entry_size = customtkinter.CTkEntry(master=app.frame_left, placeholder_text='Size m^2')
 entry_size.pack(pady=12, padx=10)
 
 entry_type = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Type','Villa','Ejerlejlighed','Rækkehus','Villalejlighed'])
@@ -62,13 +66,17 @@ entry_energy_class.pack(pady=12, padx=10)
 
 app.frame_right = customtkinter.CTkFrame(master=app, corner_radius=0)
 app.frame_right.grid(row=0, column=1, rowspan=2, pady=0, padx=0, sticky='nsew')
-app.frame_right.grid_rowconfigure(1, weight=1)  # Move this line here
+app.frame_right.grid_rowconfigure(2, weight=1)
 
 label = customtkinter.CTkLabel(master=app.frame_right, text='Map', font=('Roboto', 24))
 label.pack(pady=12, padx=10)
 
 app.map_widget = TkinterMapView(master=app.frame_right, corner_radius=0)
 app.map_widget.pack(fill='both', expand=True)  # Use pack with fill and expand options
+
+
+app.text_box = customtkinter.CTkTextbox(master=app.frame_right, height=10, font=('Roboto', 14))
+app.text_box.pack(pady=12, padx=10, fill='x')
 
 def load_model():
     global model
@@ -88,10 +96,11 @@ def get_coordinates(address, postnr):
     return x, y
 
 
-def search_event(address):
+def search_event(address, x, y):
     app.map_widget.set_address(address)
-    current_position = app.map_widget.get_position()
+    current_position = app.map_widget.get_position() 
     app.marker_list.append(app.map_widget.set_marker(current_position[0], current_position[1]))
+    
 
 
 def calculate():
@@ -115,7 +124,7 @@ def calculate():
     x,y = get_coordinates(address, zip_code)
     zip_code = zip_code[:4]
     
-    search_event(address)
+    search_event(address, x, y)
     
     load_model()
 
@@ -144,6 +153,11 @@ def calculate():
             if new_house[feature].dtype == 'object':
                 new_house[feature] = label_encoders[feature].transform(new_house[feature])
         prediction = model.predict(new_house)
+
+        app.text_box.delete(1.0, tk.END)
+        locale.setlocale(locale.LC_ALL, 'da_DK.UTF-8')
+        formatted_price = locale.currency(prediction[0], grouping=True)
+        app.text_box.insert(tk.END, f"We estimated the price for a residence on '{address}' to be {formatted_price},- DKK")
         print(prediction)
     
 
@@ -173,8 +187,9 @@ app.appearance_mode_optionmenu = customtkinter.CTkOptionMenu(app.frame_left, val
                                                                        command=change_appearance_mode)
 app.appearance_mode_optionmenu.pack(pady=12, padx=10)
 
+#app.map_widget.set_address('Region Hovedstaden')
 app.map_widget.set_address('Kongens Lyngby')
-app.map_option_menu.set('Google normal')
+app.map_widget.set_zoom(11)
 app.appearance_mode_optionmenu.set('Dark')
 
 app.mainloop()

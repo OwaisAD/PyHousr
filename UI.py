@@ -26,7 +26,7 @@ label.pack(pady=12, padx=10)
 entry_address = customtkinter.CTkEntry(master=app.frame_left, placeholder_text='Address')
 entry_address.pack(pady=12, padx=10)
 
-entry_zip_code = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Zip','2800','2820','2830','2840','2850','2900','2920','2930','2942','2950','3000','3460'])
+entry_zip_code = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Zip','2800 (Lyngby)','2820 (Gentofte)','2830 (Virum)','2840 (Holte)','2850 (Nærum)','2900 (Hellerup)','2920 (Charlottenlund)','2930 (Klampenborg)','2942 (Skodsborg)','2950 (Vedbæk)','3000 (Helsingør)','3460 (Birkerød)'])
 entry_zip_code.pack(pady=12, padx=10)
 
 entry_size = customtkinter.CTkEntry(master=app.frame_left, placeholder_text='Size')
@@ -81,6 +81,7 @@ def calculate():
         return
 
     x,y = get_coordinates(address, zip_code)
+    zip_code = zip_code[:4]
     
     load_model()
 
@@ -91,19 +92,20 @@ def calculate():
         for city in cities:
             filename = f'./data/house_data/house_data_{city}.csv'
             df = pd.read_csv(filename)
+            df['City'] = city
             dataframes.append(df)
 
         data = pd.concat(dataframes, ignore_index=True)
         data.dropna(inplace=True)
 
-        features = ['X', 'Y', 'Size', 'Type', 'Energy class']
+        features = ['X', 'Y', 'Size', 'Type', 'Energy class', 'City']
         label_encoders = {}
         for feature in features:
             if data[feature].dtype == 'object':
                 label_encoders[feature] = LabelEncoder()
                 data[feature] = label_encoders[feature].fit_transform(data[feature])
         
-        new_house = pd.DataFrame([[x, y, int(size), type, energy_class]], columns=features)
+        new_house = pd.DataFrame([[x, y, int(size), type, energy_class, int(city)]], columns=features)
         for feature in features:
             if new_house[feature].dtype == 'object':
                 new_house[feature] = label_encoders[feature].transform(new_house[feature])

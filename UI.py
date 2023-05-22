@@ -1,5 +1,8 @@
 import customtkinter
 from geopy.geocoders import Nominatim
+import joblib
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
 
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
@@ -23,16 +26,16 @@ label.pack(pady=12, padx=10)
 entry_address = customtkinter.CTkEntry(master=app.frame_left, placeholder_text='Address')
 entry_address.pack(pady=12, padx=10)
 
-entry_zip_code = customtkinter.CTkOptionMenu(app.frame_left, values=['2800','2820','2830','2840','2850','2900','2920','2930','2942','2950','3000','3460'])
+entry_zip_code = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Zip','2800','2820','2830','2840','2850','2900','2920','2930','2942','2950','3000','3460'])
 entry_zip_code.pack(pady=12, padx=10)
 
 entry_size = customtkinter.CTkEntry(master=app.frame_left, placeholder_text='Size')
 entry_size.pack(pady=12, padx=10)
 
-entry_type = customtkinter.CTkOptionMenu(app.frame_left, values=['Villa','Ejerlejlighed','Rækkehus','Villalejlighed'])
+entry_type = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Type','Villa','Ejerlejlighed','Rækkehus','Villalejlighed'])
 entry_type.pack(pady=12, padx=10)
 
-entry_energy_class = customtkinter.CTkOptionMenu(app.frame_left, values=['A2020','A2015','A2010','B','C','D','E','F','G'])
+entry_energy_class = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Energy class','A2020','A2015','A2010','B','C','D','E','F','G'])
 entry_energy_class.pack(pady=12, padx=10)
 
 app.frame_right = customtkinter.CTkFrame(master=app, corner_radius=0)
@@ -41,6 +44,11 @@ app.frame_right.grid(row=0, column=1, rowspan=1, pady=0, padx=0, sticky='nsew')
 
 label= customtkinter.CTkLabel(master=app.frame_right, text='Map', font=('Roboto',24))
 label.pack(pady=12, padx=10)
+
+def load_model():
+    global model
+    model = joblib.load('RFG_Model')
+    return model
 
 def get_coordinates(address, postnr):
     geolocator = Nominatim(user_agent="my-app")
@@ -55,8 +63,53 @@ def get_coordinates(address, postnr):
     return x, y
 
 def calculate():
-    x,y = get_coordinates(entry_address.get(), entry_zip_code.get())
-    print(x,y)
+    address = entry_address.get()
+    zip_code = entry_zip_code.get()
+    size = entry_size.get()
+    type = entry_type.get()
+    energy_class = entry_energy_class.get()
+
+    if address is None:
+        return
+    if zip_code == "Choose Zip":
+        return
+    if type == "Choose Type":
+        return
+    if size is None:
+        return
+    if energy_class == "Choose Energy Class":
+        return
+
+    x,y = get_coordinates(address, zip_code)
+    
+    model = load_model()
+
+    if model:
+        cities = ['2800', '2820', '2830', '2840', '2850', '2900', '2920', '2930', '2942', '2950', '3000', '3460']
+        dataframes = []
+
+        for city in cities:
+            filename = f'./data/house_data/house_data_{city}.csv'
+            df = pd.read_csv(filename)
+            dataframes.append(df)
+
+        data = pd.concat(dataframes, ignore_index=True)
+        data.dropna(inplace=True)
+
+        features = ['X', 'Y', 'Size', 'Type', 'Energy class']
+        label_encoders = {}
+        for feature in features:
+            if data[feature].dtype == 'object':
+                label_encoders[feature] = LabelEncoder()
+                data[feature] = label_encoders[feature].fit_transform(data[feature])
+        
+        new_house = pd.DataFrame([[x, y, size, type, energy_class]], columns=features)
+        for feature in features:
+            if new_house[feature].dtype == 'object':
+                new_house[feature] = label_encoders[feature].transform(new_house[feature])
+        prediction = model.predict(new_house)
+        print(prediction)
+    
 
 # Use CTkButton instead of tkinter Button
 button = customtkinter.CTkButton(master=app.frame_left, text="Calculate", command=calculate)

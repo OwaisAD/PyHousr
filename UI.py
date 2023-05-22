@@ -1,4 +1,5 @@
 import customtkinter
+import tkinter as tk
 from tkintermapview import TkinterMapView
 from geopy.geocoders import Nominatim
 import joblib
@@ -10,20 +11,38 @@ customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-b
 
 app = customtkinter.CTk()  # create CTk window like you do with the Tk window
 app.title("Gruppe A Python eksamen")
-app.geometry("1000x600")
-app.eval('tk::PlaceWindow . center')
 
-app.grid_columnconfigure(0, weight=0)
+# Center the window on the screen
+screen_width = app.winfo_screenwidth()
+screen_height = app.winfo_screenheight()
+window_width = 1200
+window_height = 800
+x_position = (screen_width - window_width) // 2
+y_position = (screen_height - window_height) // 2
+app.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
+app.marker_list = []
+
+app.grid_columnconfigure(0, minsize=250)  # Set the minimum width of the first column
 app.grid_columnconfigure(1, weight=1)
 app.grid_rowconfigure(0, weight=1)
 app.grid_rowconfigure(1, weight=1)
 
-app.frame_left = customtkinter.CTkFrame(master=app, width=150, corner_radius=0, fg_color=None)
+app.frame_left = customtkinter.CTkFrame(master=app, corner_radius=0, fg_color=None)
 app.frame_left.grid(row=0, column=0, pady=0, padx=10, sticky='nsew')
 app.frame_left.grid_rowconfigure(2, weight=1)
 
 label= customtkinter.CTkLabel(master=app.frame_left, text='Calculate price', font=('Roboto',24))
 label.pack(pady=12, padx=10)
+
+
+def clear_marker_event():
+    for marker in app.marker_list:
+        marker.delete()
+
+clear_markers_btn = customtkinter.CTkButton(master=app.frame_left,
+                                            text="Clear Markers",
+                                            command=clear_marker_event, fg_color="blue")
+clear_markers_btn.pack(pady=(20, 0), padx=(20, 20))
 
 entry_address = customtkinter.CTkEntry(master=app.frame_left, placeholder_text='Address')
 entry_address.pack(pady=12, padx=10)
@@ -68,6 +87,13 @@ def get_coordinates(address, postnr):
 
     return x, y
 
+
+def search_event(address):
+    app.map_widget.set_address(address)
+    current_position = app.map_widget.get_position()
+    app.marker_list.append(app.map_widget.set_marker(current_position[0], current_position[1]))
+
+
 def calculate():
     address = entry_address.get()
     zip_code = entry_zip_code.get()
@@ -88,6 +114,8 @@ def calculate():
 
     x,y = get_coordinates(address, zip_code)
     zip_code = zip_code[:4]
+    
+    search_event(address)
     
     load_model()
 
@@ -145,7 +173,7 @@ app.appearance_mode_optionmenu = customtkinter.CTkOptionMenu(app.frame_left, val
                                                                        command=change_appearance_mode)
 app.appearance_mode_optionmenu.pack(pady=12, padx=10)
 
-#app.map_widget.set_address('Nordsjælland')
+app.map_widget.set_address('Kongens Lyngby')
 app.map_option_menu.set('Google normal')
 app.appearance_mode_optionmenu.set('Dark')
 

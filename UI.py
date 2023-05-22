@@ -1,4 +1,5 @@
 import customtkinter
+from tkintermapview import TkinterMapView
 from geopy.geocoders import Nominatim
 import joblib
 import pandas as pd
@@ -15,6 +16,7 @@ app.eval('tk::PlaceWindow . center')
 app.grid_columnconfigure(0, weight=0)
 app.grid_columnconfigure(1, weight=1)
 app.grid_rowconfigure(0, weight=1)
+app.grid_rowconfigure(1, weight=1)
 
 app.frame_left = customtkinter.CTkFrame(master=app, width=150, corner_radius=0, fg_color=None)
 app.frame_left.grid(row=0, column=0, pady=0, padx=10, sticky='nsew')
@@ -38,12 +40,16 @@ entry_type.pack(pady=12, padx=10)
 entry_energy_class = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Energy class','A2020','A2015','A2010','B','C','D','E','F','G'])
 entry_energy_class.pack(pady=12, padx=10)
 
+
 app.frame_right = customtkinter.CTkFrame(master=app, corner_radius=0)
-app.frame_right.grid(row=0, column=1, rowspan=1, pady=0, padx=0, sticky='nsew')
+app.frame_right.grid(row=0, column=1, rowspan=2, pady=0, padx=0, sticky='nsew')
+app.frame_right.grid_rowconfigure(1, weight=1)  # Move this line here
 
-
-label= customtkinter.CTkLabel(master=app.frame_right, text='Map', font=('Roboto',24))
+label = customtkinter.CTkLabel(master=app.frame_right, text='Map', font=('Roboto', 24))
 label.pack(pady=12, padx=10)
+
+app.map_widget = TkinterMapView(master=app.frame_right, corner_radius=0)
+app.map_widget.pack(fill='both', expand=True)  # Use pack with fill and expand options
 
 def load_model():
     global model
@@ -117,13 +123,14 @@ def calculate():
 button = customtkinter.CTkButton(master=app.frame_left, text="Calculate", command=calculate)
 button.pack(pady=12, padx=10)
 
-def change_map(app, new_map):
+def change_map(new_map):
     if new_map == "OpenStreetMap":
-        app.map_widget.set_tile_server("https://a.tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png%22")
+        app.map_widget.set_tile_server("https://a.tile.openstreetmap.org/{z}/{x}/{y}.png")
     elif new_map == "Google normal":
-        app.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x=%7Bx%7D&y=%7By%7D&z=%7Bz%7D&s=Ga", max_zoom=22)
+        app.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
     elif new_map == "Google satellite":
-        app.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=s&hl=en&x=%7Bx%7D&y=%7By%7D&z=%7Bz%7D&s=Ga", max_zoom=22)
+        app.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
+
 
 def change_appearance_mode(new_appearance_mode):
     customtkinter.set_appearance_mode(new_appearance_mode)

@@ -1,11 +1,10 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
 import csv
 import time
 import argparse
 from accept_terms import accept_terms
-
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 browser = webdriver.Firefox()
 browser.get('https://www.dingeo.dk')
@@ -19,7 +18,7 @@ def scrape_links(postnr):
         
         time.sleep(8)
 
-        # Find knappen "Hent flere" og klik på den       
+        # Find the button "Hent flere" and click on it       
         hent_flere_knap = browser.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div/div[3]/div/div/div[13]/div/div[1]/a')
         time.sleep(3)
 
@@ -27,12 +26,12 @@ def scrape_links(postnr):
 
         last_height = browser.execute_script('return document.body.scrollHeight')
 
-        # Scroll nedad gentagne gange for at indlæse yderligere data
+        # Scroll down repeatedly for loading additional data
         while True:
-            # Scroll nedad ved hjælp af JavaScript
+            # Scroll diwn using JavaScript
             browser.execute_script('window.scrollTo(0, document.body.scrollHeight);')
             
-            # Vent lidt for at give tid til at indlæse data
+            # Give it time to load the data
             time.sleep(7)
 
             new_height = browser.execute_script('return document.body.scrollHeight')
@@ -54,7 +53,6 @@ def scrape_links(postnr):
         for href in href_values:
             links.add(href)
 
-
         with open(f'data_{postnr}.csv', 'w',newline='') as file:
             writer = csv.writer(file)
             for link in links:
@@ -62,20 +60,20 @@ def scrape_links(postnr):
                     writer.writerow([link.rstrip(',')])
     except NoSuchElementException:
     # Handling the error
-        print("Postnummeret findes ikke")
+        print("Zip code not available")
     except Exception as e:
         print(e)
 
     browser.quit()
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Vil hente links fra dinGeo på huse til salg")
-    parser.add_argument("postnr", help="Dansk postnr du vil scrappe")
+    parser = argparse.ArgumentParser(description="Fetches house links from dinGeo")
+    parser.add_argument("zip_code", help="Danish zip code to scrappe links with")
 
     args = parser.parse_args()
 
     if not args.postnr:
-        print("Indtast venligst postnr.")
+        print("Please enter a valid zip code")
     else:
-        print("Behandler.")
+        print("Processing")
         scrape_links(args.postnr)

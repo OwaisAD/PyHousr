@@ -1,6 +1,5 @@
 from geopy.geocoders import Nominatim
 import time
-import pandas as pd
 import csv
 import shutil
 
@@ -19,12 +18,9 @@ def get_coordinates(address, postnr):
 
 
 def validate_coordinates():
-    #cities = ['2800', '2820', '2830', '2840', '2850', '2900', '2920', '2930', '2942', '2950', '3000', '3460']
-    #cities = ['2800']
     fieldnames = ['Address', 'X', 'Y', 'Price', 'Type', 'Size', 'Squaremeter price', 'Energy class', 'Url']
     
-    #filename = f'./data/house_data/house_data_{city}.csv'
-    zipCode = 3460
+    zipCode = 3460 # Change value to clean data for each city
     filename = f'./data/house_data/house_data_{zipCode}.csv'
     output_file = f'./data/house_data/house_data_{zipCode}_output.csv'
     with open(filename, 'r') as f:
@@ -53,10 +49,8 @@ def validate_coordinates():
         }
             with open(output_file, 'a', newline='') as output:
                 writer = csv.DictWriter(output, fieldnames=fieldnames)
-                #writer.writeheader()
                 writer.writerow(house_data)
 
     shutil.move(output_file, filename)
 
 validate_coordinates()
-                

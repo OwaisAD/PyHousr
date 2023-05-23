@@ -4,12 +4,10 @@ import time
 
 def accept_terms(browser):
     try:
-        
-        #Find tillad_alt_knap, denne har et Id, så der bruges find_element By:ID
+        # Find allow_all_button, this has an Id, which is used in find_element By:ID
         allow_all_button = browser.find_element(By.ID,"CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")
         time.sleep(2)
         allow_all_button.click()
-        print("Vilkår er blevet accepteret")
+        print("Conditions were accepted")
     except NoSuchElementException:
-        print("Det var ikke nødvendigt at acceptere vilkår")
-
+        print("It weren't necessary to accept conditions")

@@ -1,9 +1,9 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 import csv
 import time
 import argparse
 import re
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 from accept_terms import accept_terms
 from coordinates import get_coordinates
 
@@ -18,17 +18,15 @@ def save_to_csv(data, filename):
 
     with open(filename, 'a', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        #writer.writeheader()
         writer.writerow(data)
 
-def load_visited_urls(zip_code, filename):
+def load_visited_urls(filename):
     visited_urls = []
     with open (filename) as file:
         lines = file.readlines()
         for line in lines:
             parts = line.split(',')
             visited_urls.append(parts[-1].rstrip())
-
     return visited_urls
 
 def scrape_address(browser):
@@ -36,16 +34,15 @@ def scrape_address(browser):
         address = browser.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[1]/a').text
         return address
     except:
-        print("Ingen adresse fundet")
+        print("No address found")
         return
-
 
 def scrape_price(browser):
     try:
         price = browser.find_element(By.XPATH, '/html/body/div[2]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[1]').text
         return price
     except:
-        print("Ingen pris fundet")
+        print("No price found")
         return
     
 def scrape_type(browser):
@@ -53,7 +50,7 @@ def scrape_type(browser):
         type = browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[2]').text
         return type
     except:
-        print("Ingen type fundet")
+        print("No type found")
         return
 
 def scrape_squaremetres(browser):
@@ -61,7 +58,7 @@ def scrape_squaremetres(browser):
         scrape_squaremetres = browser.find_element(By.XPATH, '//*[@id="ctrldiv"]/div[6]/div[1]/div[2]/div[1]/div[1]/div/div[2]/dl/dd[4]').text
         return scrape_squaremetres
     except:
-        print("Ingen antal kvm fundet")
+        print("No square metres found")
         return
 
 def scrape_energy_class(browser):
@@ -72,14 +69,13 @@ def scrape_energy_class(browser):
         if match:
             return match.group(1)
         else:
-            print("Energimærke blev ikke fundet.")
+            print("Energy class not found")
             return
     except:
-        print("Ingen energiklasse fundet.")
+        print("Energy class not found")
         return
 
 def house_data_scrape(zip_code):
-    
     filename = f"house_data_{zip_code}.csv"
     visited_urls = load_visited_urls(zip_code, filename)
 
@@ -98,23 +94,25 @@ def house_data_scrape(zip_code):
         time.sleep(3)
         try:
             address = scrape_address(browser)
+            
             if not address:
                 continue
-
+            
             stripped_address = address.split(',')[0].strip()    
             x,y = get_coordinates(stripped_address)   
-
             price = scrape_price(browser)
+            
             if not price:
                 continue
 
             cleaned_price = int(price.replace(".", "").split()[0])
-            
             type = scrape_type(browser)
+            
             if not type:
                 continue
 
             squaremetres = scrape_squaremetres(browser)
+            
             if not squaremetres:
                 continue
 
@@ -122,11 +120,11 @@ def house_data_scrape(zip_code):
             price_sqrtmetres = int(int(cleaned_price)/int(cleaned_squaremetres))   
 
             energy_class = scrape_energy_class(browser)
+            
             if not energy_class:
                 continue
 
             house_data = {
-               
                 'Address': address,
                 'X':x,
                 'Y':y,
@@ -144,23 +142,17 @@ def house_data_scrape(zip_code):
             print(f"Url skipped")
             print(e)
             continue
-
     browser.quit()
 
-
-
-
-
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Vil hente data fra dit valgte fra dinGeo på huse til salg")
-    parser.add_argument("zip_code", help="Dansk postnr du vil scrappe huse fra")
+    parser = argparse.ArgumentParser(description="Fetches house data from dinGeo")
+    parser.add_argument("zip_code", help="Danish zip code to scrappe data with")
 
     args = parser.parse_args()
 
     if not args.zip_code:
-        print("Indtast venligst postnr.")
+        print("Please enter a valid zip code")
     else:
-        print("Behandler.")
+        print("Processing")
         my_data = house_data_scrape(args.zip_code)
-        
-        print(f"Data er gemt i filen:")
+        print("Data has been saved")

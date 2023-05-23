@@ -96,10 +96,10 @@ def get_coordinates(address, postnr):
     return x, y
 
 
-def search_event(address, x, y):
-    app.map_widget.set_address(address)
+def search_event(address, zip_code, x, y):
+    app.map_widget.set_address(f'{address}, {zip_code}')
     current_position = app.map_widget.get_position() 
-    app.marker_list.append(app.map_widget.set_marker(current_position[0], current_position[1]))
+    app.marker_list.append(app.map_widget.set_marker(x, y))
     
 
 
@@ -124,7 +124,7 @@ def calculate():
     x,y = get_coordinates(address, zip_code)
     zip_code = zip_code[:4]
     
-    search_event(address, x, y)
+    search_event(address, zip_code, x, y)
     
     load_model()
 

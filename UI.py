@@ -71,6 +71,8 @@ app.map_widget = TkinterMapView(master=app.frame_right, corner_radius=0)
 app.map_widget.pack(fill='both', expand=True)  # Use pack with fill and expand options
 
 app.text_box = customtkinter.CTkTextbox(master=app.frame_right, height=10, font=('Roboto', 14))
+app.text_box.insert(tk.END, "Please fill out the form and press calculate")
+app.text_box.configure(state='disabled')
 app.text_box.pack(pady=12, padx=10, fill='x')
 
 def load_model():
@@ -144,10 +146,12 @@ def calculate():
                 new_house[feature] = label_encoders[feature].transform(new_house[feature])
         prediction = model.predict(new_house)
 
+        app.text_box.configure(state='normal')
         app.text_box.delete(1.0, tk.END)
         locale.setlocale(locale.LC_ALL, 'da_DK.UTF-8')
         formatted_price = locale.currency(prediction[0], grouping=True)
         app.text_box.insert(tk.END, f"We estimated the price for a residence on '{address}' to be {formatted_price},- DKK")
+        app.text_box.configure(state='disabled')
         print(prediction)
     
 # Use CTkButton instead of tkinter Button

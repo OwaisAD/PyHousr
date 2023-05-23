@@ -1,14 +1,11 @@
 import customtkinter
 import tkinter as tk
-from tkintermapview import TkinterMapView
-from geopy.geocoders import Nominatim
 import joblib
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 import locale
-
-
-
+from geopy.geocoders import Nominatim
+from tkintermapview import TkinterMapView
+from sklearn.preprocessing import LabelEncoder
 
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
@@ -63,7 +60,6 @@ entry_type.pack(pady=12, padx=10)
 entry_energy_class = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Energy class','A2020','A2015','A2010','B','C','D','E','F','G'])
 entry_energy_class.pack(pady=12, padx=10)
 
-
 app.frame_right = customtkinter.CTkFrame(master=app, corner_radius=0)
 app.frame_right.grid(row=0, column=1, rowspan=2, pady=0, padx=0, sticky='nsew')
 app.frame_right.grid_rowconfigure(2, weight=1)
@@ -74,7 +70,6 @@ label.pack(pady=12, padx=10)
 app.map_widget = TkinterMapView(master=app.frame_right, corner_radius=0)
 app.map_widget.pack(fill='both', expand=True)  # Use pack with fill and expand options
 
-
 app.text_box = customtkinter.CTkTextbox(master=app.frame_right, height=10, font=('Roboto', 14))
 app.text_box.pack(pady=12, padx=10, fill='x')
 
@@ -82,7 +77,6 @@ def load_model():
     global model
     model = joblib.load('./RFG_Model')
     
-
 def get_coordinates(address, postnr):
     geolocator = Nominatim(user_agent="my-app")
     location = geolocator.geocode(f'{address} {postnr} Danmark')
@@ -95,14 +89,10 @@ def get_coordinates(address, postnr):
 
     return x, y
 
-
 def search_event(address, zip_code, x, y):
     app.map_widget.set_address(f'{address}, {zip_code}')
-    current_position = app.map_widget.get_position() 
     app.marker_list.append(app.map_widget.set_marker(x, y))
     
-
-
 def calculate():
     address = entry_address.get()
     zip_code = entry_zip_code.get()
@@ -160,7 +150,6 @@ def calculate():
         app.text_box.insert(tk.END, f"We estimated the price for a residence on '{address}' to be {formatted_price},- DKK")
         print(prediction)
     
-
 # Use CTkButton instead of tkinter Button
 button = customtkinter.CTkButton(master=app.frame_left, text="Calculate", command=calculate)
 button.pack(pady=12, padx=10)
@@ -172,7 +161,6 @@ def change_map(new_map):
         app.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
     elif new_map == "Google satellite":
         app.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
-
 
 def change_appearance_mode(new_appearance_mode):
     customtkinter.set_appearance_mode(new_appearance_mode)
@@ -187,7 +175,6 @@ app.appearance_mode_optionmenu = customtkinter.CTkOptionMenu(app.frame_left, val
                                                                        command=change_appearance_mode)
 app.appearance_mode_optionmenu.pack(pady=12, padx=10)
 
-#app.map_widget.set_address('Region Hovedstaden')
 app.map_widget.set_address('Kongens Lyngby')
 app.map_widget.set_zoom(11)
 app.appearance_mode_optionmenu.set('Dark')

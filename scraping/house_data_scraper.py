@@ -76,11 +76,11 @@ def scrape_energy_class(browser):
         return
 
 def house_data_scrape(zip_code):
-    filename = f"house_data_{zip_code}.csv"
-    visited_urls = load_visited_urls(zip_code, filename)
+    filename = f"../data/house_data/house_data_{zip_code}.csv"
+    visited_urls = load_visited_urls(filename)
 
     try:
-        with open(f"data_{zip_code}.csv", "r") as file:
+        with open(f"../data/link_data/data_{zip_code}.csv", "r") as file:
             links = file.readlines()
     except Exception as e:
         print(e)
@@ -98,8 +98,8 @@ def house_data_scrape(zip_code):
             if not address:
                 continue
             
-            stripped_address = address.split(',')[0].strip()    
-            x,y = get_coordinates(stripped_address)   
+            stripped_address = address.split(',')[0].strip()
+            x,y = get_coordinates(stripped_address, zip_code)   
             price = scrape_price(browser)
             
             if not price:

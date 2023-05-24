@@ -77,7 +77,7 @@ app.text_box.pack(pady=12, padx=10, fill='x')
 
 def load_model():
     global model
-    model = joblib.load('./RFG_Model')
+    model = joblib.load('./models/RFG_Model')
     
 def get_coordinates(address, postnr):
     geolocator = Nominatim(user_agent="my-app")

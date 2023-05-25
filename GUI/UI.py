@@ -11,7 +11,7 @@ customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dar
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 
 app = customtkinter.CTk()  # create CTk window like you do with the Tk window
-app.title("Gruppe A Python eksamen")
+app.title("PyHousr")
 
 # Center the window on the screen
 screen_width = app.winfo_screenwidth()
@@ -80,7 +80,7 @@ def load_model():
     model = joblib.load('./models/RFG_Model')
     
 def get_coordinates(address, postnr):
-    geolocator = Nominatim(user_agent="my-app")
+    geolocator = Nominatim(user_agent="PyHousr")
     location = geolocator.geocode(f'{address} {postnr} Danmark')
     if location is not None:
         x = location.latitude

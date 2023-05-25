@@ -75,15 +75,11 @@ If you want the models and UI to include your newly scraped house_data, you have
 
 ## Status
 
-In this project, our objective was to create an application that could accurately predict the market price of residences using machine learning. The prediction was based on various parameters such as location, size, energy class and residence type. We successfully achieved what we set out as our goal and our end result is a user interface where users can interact and calculate an estimated price for a residence, in a limited geographical area based on zip codes. The area is open for extension.  
+In this project, our objective was to create an application that could accurately predict the market price of residences using machine learning. The prediction was based on various parameters such as location, size, energy class and residence type. We successfully achieved what we set out as our goal and our end result is a user interface where users can interact and calculate an estimated price for a residence, in a limited geographical area based on zip codes. The area is open for extension.
 
 To further improve our model, we recognized the need for more comprehensive data. Ideally, accessing an API for data collection instead of relying on web scraping would simplify the process and allow us to incorporate additional features, such as ground/land area, floor count, floor level for appartments, basement (if any), near ocean, near highway, noise level etc.
 
 Overall, we achieved what we set out to do. Our model performs very well, with approximately 90% of the calculated prices falling within 20% margin of the listed prices.
-
-## List of Challenges
-
-The things in project you want to highlight
 
 ## Other documents
 

@@ -10,9 +10,14 @@ from sklearn.preprocessing import LabelEncoder
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 
-app = customtkinter.CTk()  # create CTk window like you do with the Tk window
+app = customtkinter.CTk()  # create CTk window
 app.title("PyHousr")
+app.marker_list = []
 
+def clear_marker_event():
+    for marker in app.marker_list:
+        marker.delete()
+        
 # Center the window on the screen
 screen_width = app.winfo_screenwidth()
 screen_height = app.winfo_screenheight()
@@ -21,7 +26,6 @@ window_height = 800
 x_position = (screen_width - window_width) // 2
 y_position = (screen_height - window_height) // 2
 app.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
-app.marker_list = []
 
 app.grid_columnconfigure(0, minsize=250)  # Set the minimum width of the first column
 app.grid_columnconfigure(1, weight=1)
@@ -32,14 +36,11 @@ app.frame_left = customtkinter.CTkFrame(master=app, corner_radius=0, fg_color=No
 app.frame_left.grid(row=0, column=0, pady=0, padx=10, sticky='nsew')
 app.frame_left.grid_rowconfigure(2, weight=1)
 
+# LEFT SIDE
 label= customtkinter.CTkLabel(master=app.frame_left, text='Calculate price', font=('Roboto',24))
 label.pack(pady=12, padx=10)
 
-
-def clear_marker_event():
-    for marker in app.marker_list:
-        marker.delete()
-
+# clear marks button
 clear_markers_btn = customtkinter.CTkButton(master=app.frame_left,
                                             text="Clear Markers",
                                             command=clear_marker_event, fg_color="blue")
@@ -60,6 +61,7 @@ entry_type.pack(pady=12, padx=10)
 entry_energy_class = customtkinter.CTkOptionMenu(app.frame_left, values=['Choose Energy class','A2020','A2015','A2010','B','C','D','E','F','G'])
 entry_energy_class.pack(pady=12, padx=10)
 
+# RIGHT SIDE
 app.frame_right = customtkinter.CTkFrame(master=app, corner_radius=0)
 app.frame_right.grid(row=0, column=1, rowspan=2, pady=0, padx=0, sticky='nsew')
 app.frame_right.grid_rowconfigure(2, weight=1)
@@ -68,7 +70,7 @@ label = customtkinter.CTkLabel(master=app.frame_right, text='Map', font=('Roboto
 label.pack(pady=12, padx=10)
 
 app.map_widget = TkinterMapView(master=app.frame_right, corner_radius=0)
-app.map_widget.pack(fill='both', expand=True)  # Use pack with fill and expand options
+app.map_widget.pack(fill='both', expand=True)
 
 app.text_box = customtkinter.CTkTextbox(master=app.frame_right, height=10, font=('Roboto', 14))
 app.text_box.insert(tk.END, "Please fill out the form and press calculate")
@@ -153,8 +155,8 @@ def calculate():
         app.text_box.insert(tk.END, f"We estimated the price for a residence on '{address}' to be {formatted_price},- DKK")
         app.text_box.configure(state='disabled')
         print(prediction)
-    
-# Use CTkButton instead of tkinter Button
+
+# calculate button on the left side
 button = customtkinter.CTkButton(master=app.frame_left, text="Calculate", command=calculate)
 button.pack(pady=12, padx=10)
 

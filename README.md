@@ -14,6 +14,7 @@
 ## About
 
 Semester project, 4th semester, Python Data Science application using Python, Selenium, Geopy, Pandas, Numpy, Tkinter, Matplotlib, Sklearn.
+Models: Linear Regression and Random Forrest Regression.
 <br>
 
 ## Setup project instructions

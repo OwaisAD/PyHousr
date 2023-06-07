@@ -63,7 +63,7 @@ def scrape_squaremetres(browser):
 
 def scrape_energy_class(browser):
     try:
-        energy_class = browser.find_element(By.XPATH, '/html/body/div[2]/div[6]/div[1]/div[2]/div[22]/div/div[2]/div/div[1]/p[1]').text
+        energy_class = browser.find_element(By.XPATH, '/html/body/div/div[6]/div[1]/div[2]/div[24]/div/div[2]/div/div[1]/p[1]').text
         regex_pattern = r"energimærke\s*(A2020|A2015|A2010|A|B|C|D|E|F|G)"
         match = re.search(regex_pattern, energy_class)
         if match:
@@ -76,11 +76,11 @@ def scrape_energy_class(browser):
         return
 
 def house_data_scrape(zip_code):
-    filename = f"../data/house_data/house_data_{zip_code}.csv"
+    filename = f"./data/house_data/house_data_{zip_code}.csv"
     visited_urls = load_visited_urls(filename)
 
     try:
-        with open(f"../data/link_data/data_{zip_code}.csv", "r") as file:
+        with open(f"./data/link_data/data_{zip_code}.csv", "r") as file:
             links = file.readlines()
     except Exception as e:
         print(e)

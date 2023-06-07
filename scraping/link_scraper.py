@@ -19,7 +19,7 @@ def scrape_links(postnr):
         time.sleep(8)
 
         # Find the button "Hent flere" and click on it       
-        hent_flere_knap = browser.find_element(By.XPATH, '/html/body/div[4]/div/div/div/div/div[3]/div/div/div[13]/div/div[1]/a')
+        hent_flere_knap = browser.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div/div[3]/div/div/div[13]/div/div[1]/a')
         time.sleep(3)
 
         hent_flere_knap.click()
@@ -53,7 +53,7 @@ def scrape_links(postnr):
         for href in href_values:
             links.add(href)
 
-        with open(f'../data/link_data/data_{postnr}.csv', 'w',newline='') as file:
+        with open(f'./data/link_data/data_{postnr}.csv', 'w',newline='') as file:
             writer = csv.writer(file)
             for link in links:
                 if link != f'https://www.dingeo.dk/salg/kort/#?postnr={postnr}':

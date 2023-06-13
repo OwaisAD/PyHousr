@@ -2,18 +2,17 @@
 
 ## Table of content
 
-- [Python_eksamen](#Python_eksamen)
-  - [Table of content](#table-of-content)
-  - [About](#about)
-  - [Setup project instructions](#Setup-project-instructions)
-  - [Extend project](#Extend-project)
-  - [Status](#status)
-  - [List of Challenges](#List-of-Challenges)
-  - [Other documents](#Other-documents)
+- [Table of content](#table-of-content)
+- [About](#about)
+- [Setup project instructions](#Setup-project-instructions)
+- [Extend project](#Extend-project)
+- [Status](#status)
+- [List of Challenges](#List-of-Challenges)
+- [Other documents](#Other-documents)
 
 ## About
 
-Semester project, 4th semester, Python Data Science application using Python, Selenium, Geopy, Pandas, Numpy, Tkinter, Matplotlib, Sklearn.
+Python Data Science application using Python, Selenium, Geopy, Pandas, Numpy, Tkinter, Matplotlib, Sklearn.
 Models: Linear Regression and Random Forrest Regression.
 <br>
 
@@ -82,6 +81,3 @@ To further improve our model, we recognized the need for more comprehensive data
 
 Overall, we achieved what we set out to do. Our model performs very well, with approximately 90% of the calculated prices falling within 20% margin of the listed prices.
 
-## Other documents
-
-Brainstorming can be found [here](https://docs.google.com/document/d/1BFdvE4-UCWUdEFiJL24s-s-r8a0LO03WU1U8LXW24tU/edit)

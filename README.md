@@ -1,4 +1,8 @@
 # PyHousr
+<div style="display: flex;">
+  <img width="500" alt="GUI" src="https://github.com/OwaisAD/PyHousr/assets/33609590/c45be74a-677d-4f92-8f14-1420a17c133d">
+  <img width="500" alt="GUI" src="https://github.com/OwaisAD/PyHousr/assets/33609590/9d118e22-e867-4ba7-9990-fe5a4410facc">
+</div>
 
 ## Table of content
 
